@@ -19,7 +19,9 @@ $(call inherit-product, vendor/xiaomi/sm8550-common/sm8550-common-vendor.mk)
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
-    hardware/xiaomi
+    hardware/xiaomi \
+    kernel/xiaomi/sm8550 \
+		kernel/xiaomi/sm8550-modules
 
 # AAPT
 PRODUCT_AAPT_CONFIG := normal
@@ -57,8 +59,6 @@ TARGET_BOARD_PLATFORM := kalama
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
 # Shipping API level
-BOARD_API_LEVEL := 33
-BOARD_SHIPPING_API_LEVEL := 33
 PRODUCT_SHIPPING_API_LEVEL := 33
 
 # ANT+
@@ -83,20 +83,10 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth.audio-impl \
     android.hardware.soundtrigger@2.3-impl \
     audio.bluetooth.default \
-    audio.primary.kalama \
     audio.r_submix.default \
     audio.usb.default \
     audioadsprpcd \
-    libagm_compress_plugin \
-    libagm_mixer_plugin \
-    libagm_pcm_plugin \
-    libbatterylistener \
-    libqcompostprocbundle \
-    libqcomvisualizer \
-    libqcomvoiceprocessing \
-    libsndcardparser \
-    libtinycompress \
-    libvolumelistener
+    libtinycompress
 
 AUDIO_HAL_DIR := hardware/qcom-caf/sm8550/audio/primary-hal
 
@@ -308,9 +298,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init/fstab.qcom:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.qcom
 
-# Kernel
-include $(LOCAL_PATH)/kernel/kernel-platform.mk
-
 # Keymaster
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@4.1.vendor \
@@ -513,6 +500,7 @@ PRODUCT_PACKAGES += \
     android.frameworks.sensorservice@1.0.vendor \
     android.hardware.sensors-service.xiaomi-multihal \
     libsensorndkbridge \
+    sensor-notifier \
     sensors.xiaomi
 
 PRODUCT_COPY_FILES += \
@@ -620,7 +608,6 @@ PRODUCT_PACKAGES += \
     android.hardware.wifi-service \
     android.hardware.wifi.supplicant-V1-ndk.vendor \
     hostapd \
-    libqsap_sdk \
     libwpa_client \
     libwifi-hal-ctrl \
     libwifi-hal-qcom \
@@ -645,6 +632,3 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libnl \
     libwfdaac_vendor
-
-PRODUCT_BOOT_JARS += \
-    WfdCommon
