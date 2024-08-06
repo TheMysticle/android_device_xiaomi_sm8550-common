@@ -5,6 +5,7 @@
 #
 
 COMMON_PATH := device/xiaomi/sm8550-common
+KERNEL_PATH := $(DEVICE_PATH)-kernel
 
 # A/B
 AB_OTA_UPDATER := true
@@ -42,11 +43,14 @@ AUDIO_FEATURE_ENABLED_PAL_HIDL := true
 AUDIO_FEATURE_ENABLED_PROXY_DEVICE := true
 AUDIO_FEATURE_ENABLED_SSR := true
 AUDIO_FEATURE_ENABLED_SVA_MULTI_STAGE := true
-BOARD_SUPPORTS_OPENSOURCE_STHAL := true
+BOARD_SUPPORTS_OPENSOURCE_STHAL := false
 BOARD_SUPPORTS_SOUND_TRIGGER := true
 BOARD_USES_ALSA_AUDIO := true
 TARGET_USES_QCOM_MM_AUDIO := true
-AUDIO_FEATURE_ENABLED_AGM_HIDL := true
+AUDIO_FEATURE_ENABLED_DTS_EAGLE := false
+AUDIO_FEATURE_ENABLED_HW_ACCELERATED_EFFECTS := false
+
+TARGET_USES_QCOM_MM_AUDIO := true
 
 # Boot
 BOARD_BOOT_HEADER_VERSION := 4
@@ -58,50 +62,24 @@ BOARD_MKBOOTIMG_INIT_ARGS += --header_version $(BOARD_INIT_BOOT_HEADER_VERSION)
 BOARD_RAMDISK_USE_LZ4 := true
 BOARD_USES_GENERIC_KERNEL_IMAGE := true
 
-TARGET_KERNEL_SOURCE := kernel/xiaomi/sm8550
-TARGET_KERNEL_CONFIG := \
-    gki_defconfig \
-    vendor/kalama_GKI.config \
-		vendor/nuwa_GKI.config
-
-TARGET_KERNEL_EXT_MODULE_ROOT := kernel/xiaomi/sm8550-modules
-TARGET_KERNEL_EXT_MODULES := \
-		qcom/opensource/mmrm-driver \
-		qcom/opensource/mm-drivers/hw_fence \
-		qcom/opensource/mm-drivers/msm_ext_display \
-		qcom/opensource/mm-drivers/sync_fence \
-		qcom/opensource/audio-kernel \
-		qcom/opensource/camera-kernel \
-		qcom/opensource/dataipa/drivers/platform/msm \
-		qcom/opensource/datarmnet/core \
-		qcom/opensource/datarmnet-ext/aps \
-		qcom/opensource/datarmnet-ext/offload \
-		qcom/opensource/datarmnet-ext/shs \
-		qcom/opensource/datarmnet-ext/perf \
-		qcom/opensource/datarmnet-ext/perf_tether \
-		qcom/opensource/datarmnet-ext/sch \
-		qcom/opensource/datarmnet-ext/wlan \
-		qcom/opensource/securemsm-kernel \
-		qcom/opensource/display-drivers/msm \
-		qcom/opensource/eva-kernel \
-		qcom/opensource/video-driver \
-		qcom/opensource/graphics-kernel \
-		qcom/opensource/wlan/platform \
-		qcom/opensource/wlan/qcacld-3.0/.kiwi_v2 \
-		qcom/opensource/bt-kernel \
-		qcom/opensource/eSE-driver \
-		qcom/opensource/nfc-st-driver \
-		qcom/opensource/touch-drivers \
-		nxp/opensource/driver
+TARGET_NO_KERNEL_OVERRIDE := true
+TARGET_KERNEL_SOURCE := device/xiaomi/nuwa-kernel/kernel-headers
+PRODUCT_COPY_FILES += \
+	$(KERNEL_PATH)/kernel:kernel
 
 # Kernel modules
-BOARD_SYSTEM_KERNEL_MODULES_LOAD := $(strip $(shell cat $(COMMON_PATH)/modules/modules.load.system_dlkm))
-BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE := $(TARGET_KERNEL_SOURCE)/modules.vendor_blocklist.msm.kalama
-BOARD_VENDOR_KERNEL_MODULES_LOAD := $(strip $(shell cat $(COMMON_PATH)/modules/modules.load))
-BOARD_VENDOR_RAMDISK_KERNEL_MODULES_BLOCKLIST_FILE := $(BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE)
-BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(strip $(shell cat $(COMMON_PATH)/modules/modules.load.vendor_boot))
-BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(strip $(shell cat $(COMMON_PATH)/modules/modules.load.recovery))
-BOOT_KERNEL_MODULES := $(strip $(shell cat $(COMMON_PATH)/modules/modules.load.recovery $(COMMON_PATH)/modules/modules.include.vendor_ramdisk))
+BOARD_SYSTEM_KERNEL_MODULES_LOAD := $(strip $(shell cat $(KERNEL_PATH)/system_dlkm/lib/modules/5.15.151-android13-8-gbc5cd072c14e/modules.load))
+
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(strip $(shell cat $(KERNEL_PATH)/vendor_ramdisk/modules.load))
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES := $(addprefix $(KERNEL_PATH)/vendor_ramdisk/, $(BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD))
+
+BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(strip $(shell cat $(COMMON_PATH)/modules.load.recovery))
+
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES := $(sort $(BOARD_VENDOR_RAMDISK_KERNEL_MODULES) $(RECOVERY_MODULES))
+
+BOARD_VENDOR_KERNEL_MODULES_LOAD := $(strip $(shell cat $(KERNEL_PATH)/vendor_dlkm/modules.load))
+BOARD_VENDOR_KERNEL_MODULES := $(addprefix $(KERNEL_PATH)/vendor_dlkm/, $(BOARD_VENDOR_KERNEL_MODULES_LOAD))
+BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE :=  $(KERNEL_PATH)/vendor_dlkm/modules.blocklist
 
 # Boot control
 SOONG_CONFIG_NAMESPACES += ufsbsg
@@ -137,9 +115,8 @@ TARGET_RECOVERY_DEVICE_MODULES := libinit_xiaomi_sm8550
 
 # Dtb/o
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
-BOARD_USES_QCOM_MERGE_DTBS_SCRIPT := true
-TARGET_NEEDS_DTBOIMAGE := true
-TARGET_MERGE_DTBS_WILDCARD ?= kalama*base
+BOARD_PREBUILT_DTBOIMAGE := $(KERNEL_PATH)/dtbo.img
+BOARD_PREBUILT_DTBIMAGE_DIR := $(KERNEL_PATH)/dtb
 
 # Kernel
 BOARD_BOOTCONFIG := \
@@ -165,6 +142,9 @@ BOARD_KERNEL_BASE       := 0x00000000
 BOARD_KERNEL_IMAGE_NAME := Image
 
 # Lineage Health
+TARGET_HEALTH_CHARGING_CONTROL_CHARGING_PATH := /sys/class/qcom-battery/input_suspend
+TARGET_HEALTH_CHARGING_CONTROL_CHARGING_ENABLED := 0
+TARGET_HEALTH_CHARGING_CONTROL_CHARGING_DISABLED := 1
 TARGET_HEALTH_CHARGING_CONTROL_SUPPORTS_BYPASS := false
 
 # Metadata
@@ -172,9 +152,13 @@ BOARD_USES_METADATA_PARTITION := true
 
 # Platform
 BOARD_USES_QCOM_HARDWARE := true
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno740
 TARGET_BOARD_PLATFORM := kalama
 
 # Partitions
+BOARD_PRODUCTIMAGE_MINIMAL_PARTITION_RESERVED_SIZE := false
+-include vendor/lineage/config/BoardConfigReservedSize.mk
+
 BOARD_BOOTIMAGE_PARTITION_SIZE := 201326592
 BOARD_DTBOIMG_PARTITION_SIZE := 25165824
 BOARD_INIT_BOOT_IMAGE_PARTITION_SIZE := 8388608
@@ -188,20 +172,16 @@ BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 9659482112
 
 BOARD_FLASH_BLOCK_SIZE := 262144
 
-BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := erofs
-BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := erofs
-BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := erofs
-BOARD_SYSTEM_DLKMIMAGE_FILE_SYSTEM_TYPE := erofs
-BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := erofs
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := erofs
-BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE := erofs
-
 TARGET_COPY_OUT_ODM := odm
 TARGET_COPY_OUT_PRODUCT := product
 TARGET_COPY_OUT_SYSTEM_DLKM := system_dlkm
 TARGET_COPY_OUT_SYSTEM_EXT := system_ext
 TARGET_COPY_OUT_VENDOR := vendor
 TARGET_COPY_OUT_VENDOR_DLKM := vendor_dlkm
+
+BOARD_PARTITION_LIST := $(call to-upper, $(BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST))
+$(foreach p, $(BOARD_PARTITION_LIST), $(eval BOARD_$(p)IMAGE_FILE_SYSTEM_TYPE := erofs))
+$(foreach p, $(BOARD_PARTITION_LIST), $(eval TARGET_COPY_OUT_$(p) := $(call to-lower, $(p))))
 
 # PowerShare
 SOONG_CONFIG_NAMESPACES += XIAOMI_POWERSHARE
@@ -216,27 +196,32 @@ TARGET_SYSTEM_EXT_PROP += $(COMMON_PATH)/configs/properties/system_ext.prop
 TARGET_VENDOR_PROP += $(COMMON_PATH)/configs/properties/vendor.prop
 
 # Recovery
+$(call soong_config_set, ufsbsg, ufsframework, bsg)
 BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE := true
 TARGET_RECOVERY_FSTAB := $(COMMON_PATH)/init/fstab.qcom
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_RECOVERY_UI_MARGIN_HEIGHT := 80
+TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
+# RIL
+ENABLE_VENDOR_RIL_SERVICE := true
+
 # SELinux
-include device/xiaomi/sepolicy/SEPolicy.mk
 include device/qcom/sepolicy_vndr/SEPolicy.mk
+include device/lineage/sepolicy/libperfmgr/sepolicy.mk
 BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
 SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/private
 SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/public
 
+# Security patch level
+BOOT_SECURITY_PATCH := 2023-10-01
+VENDOR_SECURITY_PATCH := $(BOOT_SECURITY_PATCH)
+
 # Sensors
-SOONG_CONFIG_NAMESPACES += SENSORS_XIAOMI
-SOONG_CONFIG_SENSORS_XIAOMI += USES_SINGLE_TAP_SENSOR
-SOONG_CONFIG_SENSORS_XIAOMI_USES_SINGLE_TAP_SENSOR := true
-SOONG_CONFIG_SENSORS_XIAOMI += USES_DOUBLE_TAP_SENSOR
-SOONG_CONFIG_SENSORS_XIAOMI_USES_DOUBLE_TAP_SENSOR := true
-SOONG_CONFIG_SENSORS_XIAOMI += USES_UDFPS_SENSOR
-SOONG_CONFIG_SENSORS_XIAOMI_USES_UDFPS_SENSOR := true
+$(call soong_config_set, SENSORS_XIAOMI, USES_SINGLE_TAP_SENSOR, true)
+$(call soong_config_set, SENSORS_XIAOMI, USES_DOUBLE_TAP_SENSOR, true)
+$(call soong_config_set, SENSORS_XIAOMI, USES_UDFPS_SENSOR, true)
 
 # Verified Boot
 BOARD_AVB_ENABLE := true
@@ -247,6 +232,11 @@ BOARD_AVB_BOOT_ALGORITHM := SHA256_RSA4096
 BOARD_AVB_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
 BOARD_AVB_BOOT_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 BOARD_AVB_BOOT_ROLLBACK_INDEX_LOCATION := 4
+
+BOARD_AVB_DTBO_ALGORITHM := SHA256_RSA4096
+BOARD_AVB_DTBO_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
+BOARD_AVB_DTBO_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
+BOARD_AVB_DTBO_ROLLBACK_INDEX_LOCATION := 3
 
 BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
 BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem

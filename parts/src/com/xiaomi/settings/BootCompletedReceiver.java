@@ -17,7 +17,6 @@ import android.view.Display;
 import android.view.Display.HdrCapabilities;
 
 import com.xiaomi.settings.display.ColorModeService;
-import com.xiaomi.settings.doze.AodBrightnessService;
 import com.xiaomi.settings.touch.TapToWakeService;
 import com.xiaomi.settings.touch.TouchOrientationService;
 
@@ -40,10 +39,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     }
 
     private static void onLockedBootCompleted(Context context) {
-        // AOD
-        context.startServiceAsUser(new Intent(context, AodBrightnessService.class),
-                UserHandle.CURRENT);
-
         // Display
         context.startServiceAsUser(new Intent(context, ColorModeService.class),
                 UserHandle.CURRENT);
@@ -53,7 +48,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 UserHandle.CURRENT);
         context.startServiceAsUser(new Intent(context, TouchOrientationService.class),
                 UserHandle.CURRENT);
-        
+
         // Override HDR types to enable Dolby Vision
         final DisplayManager displayManager = context.getSystemService(DisplayManager.class);
         displayManager.overrideHdrTypes(Display.DEFAULT_DISPLAY, new int[]{
