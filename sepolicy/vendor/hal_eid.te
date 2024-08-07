@@ -1,4 +1,3 @@
-
 type vendor_hal_eid_hwservice, hwservice_manager_type, protected_hwservice;
 
 allow vendor_hal_eid_client vendor_hal_eid_server:binder { call transfer };

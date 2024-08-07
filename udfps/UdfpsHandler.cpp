@@ -32,10 +32,6 @@
 #define PARAM_FOD_PRESSED 1
 #define PARAM_FOD_RELEASED 0
 
-#define FOD_STATUS_OFF 0
-#define FOD_STATUS_ON 1
-#define FOD_STATUS_OFF_UNTIL_SUSPEND 3
-
 #define TOUCH_DEV_PATH "/dev/xiaomi-touch"
 #define TOUCH_MAGIC 'T'
 #define TOUCH_IOC_SET_CUR_VALUE _IO(TOUCH_MAGIC, SET_CUR_VALUE)
@@ -129,28 +125,12 @@ class XiaomiSm8550UdfpsHander : public UdfpsHandler {
                 mDevice->extCmd(mDevice, COMMAND_FOD_PRESS_STATUS,
                                 pressed ? PARAM_FOD_PRESSED : PARAM_FOD_RELEASED);
 
-                // Get brightness
-                struct disp_brightness_req brightness_req;
-                int brightness = LOW_BRIGHTNESS_THRESHHOLD;
-                brightness_req.base.flag = 0;
-                brightness_req.base.disp_id = MI_DISP_PRIMARY;
-                rc = ioctl(disp_fd_.get(), MI_DISP_IOCTL_GET_BRIGHTNESS, &brightness_req);
-                if (rc) {
-                    LOG(ERROR) << "failed to get brightness, err: " << rc;
-                } else if (brightness_req.brightness > 0) {
-                    brightness = brightness_req.brightness;
-                }
-                LOG(DEBUG) << "brightness is: " << (int)brightness_req.brightness;
-                bool requestLowBrightness = !enrolling && brightness < LOW_BRIGHTNESS_THRESHHOLD;
-
                 // Request HBM
                 disp_local_hbm_req req;
                 req.base.flag = 0;
                 req.base.disp_id = MI_DISP_PRIMARY;
-                req.local_hbm_value =
-                        pressed ? (requestLowBrightness ? LHBM_TARGET_BRIGHTNESS_WHITE_110NIT
-                                                        : LHBM_TARGET_BRIGHTNESS_WHITE_1000NIT)
-                                : LHBM_TARGET_BRIGHTNESS_OFF_FINGER_UP;
+                req.local_hbm_value = pressed ? LHBM_TARGET_BRIGHTNESS_WHITE_1000NIT
+                                              : LHBM_TARGET_BRIGHTNESS_OFF_FINGER_UP;
                 ioctl(disp_fd_.get(), MI_DISP_IOCTL_SET_LOCAL_HBM, &req);
             }
         }).detach();
@@ -214,62 +194,37 @@ class XiaomiSm8550UdfpsHander : public UdfpsHandler {
         lastPressX = x;
         lastPressY = y;
 
-        // Ensure touchscreen is aware of the press state, ideally this is not needed
+        // Notify touchscreen about press status
         setFingerDown(true);
     }
 
     void onFingerUp() {
         LOG(DEBUG) << __func__;
-        // Ensure touchscreen is aware of the press state, ideally this is not needed
+        // Notify touchscreen about press status
         setFingerDown(false);
     }
 
     void onAcquired(int32_t result, int32_t vendorCode) {
         LOG(DEBUG) << __func__ << " result: " << result << " vendorCode: " << vendorCode;
         if (result == FINGERPRINT_ACQUIRED_GOOD) {
-            // Request to disable HBM already, even if the finger is still pressed
-            disp_local_hbm_req req;
-            req.base.flag = 0;
-            req.base.disp_id = MI_DISP_PRIMARY;
-            req.local_hbm_value = LHBM_TARGET_BRIGHTNESS_OFF_FINGER_UP;
-            ioctl(disp_fd_.get(), MI_DISP_IOCTL_SET_LOCAL_HBM, &req);
-            if (!enrolling) {
-                setFodStatus(FOD_STATUS_OFF_UNTIL_SUSPEND);
-            }
-        }
-
-        /* vendorCode
-         * 21: waiting for finger
-         * 22: finger down
-         * 23: finger up
-         */
-        if (vendorCode == 21) {
-            setFodStatus(FOD_STATUS_ON);
+            setFingerDown(false);
         }
     }
 
     void cancel() {
         LOG(DEBUG) << __func__;
-        enrolling = false;
-
-        setFodStatus(FOD_STATUS_OFF_UNTIL_SUSPEND);
     }
 
     void preEnroll() {
         LOG(DEBUG) << __func__;
-        enrolling = true;
     }
 
     void enroll() {
         LOG(DEBUG) << __func__;
-        enrolling = true;
     }
 
     void postEnroll() {
         LOG(DEBUG) << __func__;
-        enrolling = false;
-
-        setFodStatus(FOD_STATUS_OFF_UNTIL_SUSPEND);
     }
 
   private:
@@ -278,11 +233,6 @@ class XiaomiSm8550UdfpsHander : public UdfpsHandler {
     android::base::unique_fd disp_fd_;
     bool enrolling = false;
     uint32_t lastPressX, lastPressY;
-
-    void setFodStatus(int value) {
-        int buf[MAX_BUF_SIZE] = {MI_DISP_PRIMARY, Touch_Fod_Enable, value};
-        ioctl(touch_fd_.get(), TOUCH_IOC_SET_CUR_VALUE, &buf);
-    }
 
     void setFingerDown(bool pressed) {
         int buf[MAX_BUF_SIZE] = {MI_DISP_PRIMARY, THP_FOD_DOWNUP_CTL, pressed ? 1 : 0};

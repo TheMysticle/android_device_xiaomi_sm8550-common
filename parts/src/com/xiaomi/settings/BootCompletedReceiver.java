@@ -48,7 +48,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
                 UserHandle.CURRENT);
         context.startServiceAsUser(new Intent(context, TouchOrientationService.class),
                 UserHandle.CURRENT);
-
+        
         // Override HDR types to enable Dolby Vision
         final DisplayManager displayManager = context.getSystemService(DisplayManager.class);
         displayManager.overrideHdrTypes(Display.DEFAULT_DISPLAY, new int[]{

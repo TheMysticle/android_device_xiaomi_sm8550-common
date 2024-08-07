@@ -50,11 +50,15 @@ PRODUCT_PACKAGES += \
     checkpoint_gc \
     otapreopt_script
 
+# Board
+TARGET_BOARD_PLATFORM := kalama
+
 # Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
 # Shipping API level
-PRODUCT_SHIPPING_API_LEVEL := 33
+BOARD_SHIPPING_API_LEVEL := 33
+PRODUCT_SHIPPING_API_LEVEL := $(BOARD_SHIPPING_API_LEVEL)
 
 # ANT+
 PRODUCT_PACKAGES += \
@@ -65,7 +69,10 @@ PRODUCT_PACKAGES += \
     android.hardware.atrace@1.0-service
 
 # Audio
-$(call soong_config_set, android_hardware_audio, run_64bit, true)
+SOONG_CONFIG_NAMESPACES += android_hardware_audio
+SOONG_CONFIG_android_hardware_audio += \
+		run_64bit
+SOONG_CONFIG_android_hardware_audio_run_64bit := true
 
 PRODUCT_PACKAGES += \
 		android.hardware.audio@7.1-impl \
@@ -93,15 +100,50 @@ PRODUCT_PACKAGES += \
 		libvolumelistener
 
 # Audio
-PRODUCT_COPY_FILES += \
-		$(LOCAL_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_kalama/audio_policy_configuration.xml \
-		$(LOCAL_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_kalama_qssi/audio_policy_configuration.xml
+SOONG_CONFIG_NAMESPACES += android_hardware_audio
+SOONG_CONFIG_android_hardware_audio += \
+		run_64bit
+SOONG_CONFIG_android_hardware_audio_run_64bit := true
+
+PRODUCT_PACKAGES += \
+		android.hardware.audio@7.1-impl \
+		android.hardware.audio.effect@7.0-impl \
+		android.hardware.audio.service \
+		android.hardware.bluetooth.audio-V2-ndk.vendor \
+		android.hardware.bluetooth.audio-impl \
+		android.hardware.soundtrigger@2.3-impl \
+		audio.bluetooth.default \
+		audio.primary.kalama \
+		audio.r_submix.default \
+		audio.usb.default \
+		audioadsprpcd \
+		libagm_compress_plugin \
+		libagm_mixer_plugin \
+		libagm_pcm_plugin \
+		libbatterylistener \
+		libqcompostprocbundle \
+		libqcomvisualizer \
+		libqcomvoiceprocessing \
+		libsndcardparser \
+		libtinycompress \
+		libvolumelistener
+
+AUDIO_HAL_DIR := hardware/qcom-caf/sm8550/audio/primary-hal
 
 PRODUCT_COPY_FILES += \
-		$(LOCAL_PATH)/configs/audio/bluetooth_hearing_aid_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_hearing_aid_audio_policy_configuration.xml \
+		$(LOCAL_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_kalama/audio_policy_configuration.xml \
+		$(LOCAL_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_kalama_qssi/audio_policy_configuration.xml \
+		$(LOCAL_PATH)/configs/audio/bluetooth_hearing_aid_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_hearing_aid_audio_policy_configuration.xml
+
+PRODUCT_COPY_FILES += \
+		$(AUDIO_HAL_DIR)/configs/common/bluetooth_qti_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_qti_audio_policy_configuration.xml
+
+PRODUCT_COPY_FILES += \
+		frameworks/av/services/audiopolicy/config/a2dp_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_audio_policy_configuration.xml \
 		frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
 		frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
 		frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
+		frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml \
 		frameworks/native/data/etc/android.hardware.audio.low_latency.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.low_latency.xml \
 		frameworks/native/data/etc/android.hardware.audio.pro.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.pro.xml \
 		frameworks/native/data/etc/android.software.midi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.midi.xml
@@ -146,6 +188,7 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.common@1.0.vendor \
     camera.device@1.0-impl \
     libcamera2ndk_vendor \
+    liblz4.vendor \
     vendor.qti.hardware.camera.aon@1.3.vendor \
     vendor.qti.hardware.camera.device@1.0.vendor \
     vendor.qti.hardware.camera.postproc@1.0.vendor
@@ -160,6 +203,10 @@ PRODUCT_COPY_FILES += \
 # Characteristics
 PRODUCT_CHARACTERISTICS := nosdcard
 
+# ConfigStore
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.capabilityconfigstore@1.0.vendor
+
 # Consumer IR
 PRODUCT_PACKAGES += \
     android.hardware.ir-service.example
@@ -168,6 +215,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.consumerir.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.consumerir.xml
 
 # Display
+TARGET_USE_YCRCB_CAMERA_ENCODE := true
 PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator-V1-ndk.vendor \
     android.hardware.graphics.common-V3-ndk.vendor \
@@ -214,8 +262,7 @@ PRODUCT_PACKAGES += \
 
 # Fastbootd
 PRODUCT_PACKAGES += \
-    android.hardware.fastboot@1.1-impl-mock \
-    fastbootd
+		fastbootd
 
 # Fingerprint
 PRODUCT_PACKAGES += \
@@ -337,19 +384,20 @@ PRODUCT_VENDOR_PROPERTIES += \
 endif
 
 # Media
+include hardware/qcom-caf/sm8550/media/product.mk
+
 PRODUCT_PACKAGES += \
     android.hardware.media.c2@1.2.vendor \
     libavservices_minijail \
+    libavservices_minijail_vendor \
     libavservices_minijail.vendor \
     libcodec2_soft_common.vendor \
+    libcodec2_hidl@1.2.vendor \
     libcodec2_vndk.vendor \
     libgui_vendor \
     libsfplugin_ccodec_utils.vendor \
-    libstagefrighthw
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/audio/codecs/media_codecs_c2_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_c2_audio.xml \
-    $(LOCAL_PATH)/audio/codecs/media_codecs_vendor_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor_audio.xml
+    libstagefrighthw \
+    dolbycodec_shim
 
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
@@ -411,6 +459,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Xiaomi8550CarrierConfigRes \
     Xiaomi8550CarrierConfigResMiui \
+    Xiaomi8550DeviceAsWebcamRes \
     Xiaomi8550Frameworks \
     Xiaomi8550Nfc \
     Xiaomi8550SecureElement \
@@ -478,9 +527,12 @@ PRODUCT_PACKAGES += \
 
 # QMI
 PRODUCT_PACKAGES += \
+    libcurl.vendor \
     libjson \
+    libjsoncpp.vendor \
     libqti_vndfwk_detect.vendor \
     libqti_vndfwk_detect_vendor \
+    libsqlite.vendor \
     libvndfwk_detect_jni.qti.vendor \
     libvndfwk_detect_jni.qti_vendor
 
@@ -576,6 +628,9 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.host.xml
 
+PRODUCT_PACKAGES += \
+		libusbhost.vendor
+
 # Vendor service manager
 PRODUCT_PACKAGES += \
     vndservicemanager
@@ -599,21 +654,22 @@ PRODUCT_COPY_FILES += \
 
 # WiFi
 PRODUCT_PACKAGES += \
-    android.hardware.wifi.hostapd-V1-ndk.vendor \
-    android.hardware.wifi-service \
-    android.hardware.wifi.supplicant-V1-ndk.vendor \
-    hostapd \
-    libwpa_client \
-    libwifi-hal-ctrl \
-    libwifi-hal-qcom \
-    vendor.qti.hardware.wifi.hostapd@1.0.vendor \
-    vendor.qti.hardware.wifi.hostapd@1.1.vendor \
-    vendor.qti.hardware.wifi.hostapd@1.2.vendor \
-    vendor.qti.hardware.wifi.supplicant@2.0.vendor \
-    vendor.qti.hardware.wifi.supplicant@2.1.vendor \
-    vendor.qti.hardware.wifi.supplicant@2.2.vendor \
-    wpa_supplicant \
-    wpa_supplicant.conf
+		android.hardware.wifi.hostapd-V1-ndk.vendor \
+		android.hardware.wifi-service \
+		android.hardware.wifi.supplicant-V1-ndk.vendor \
+		hostapd \
+		libqsap_sdk \
+		libwpa_client \
+		libwifi-hal-ctrl \
+		libwifi-hal-qcom \
+		vendor.qti.hardware.wifi.hostapd@1.0.vendor \
+		vendor.qti.hardware.wifi.hostapd@1.1.vendor \
+		vendor.qti.hardware.wifi.hostapd@1.2.vendor \
+		vendor.qti.hardware.wifi.supplicant@2.0.vendor \
+		vendor.qti.hardware.wifi.supplicant@2.1.vendor \
+		vendor.qti.hardware.wifi.supplicant@2.2.vendor \
+		wpa_supplicant \
+		wpa_supplicant.conf
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.aware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.aware.xml \
