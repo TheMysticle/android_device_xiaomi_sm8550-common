@@ -116,6 +116,7 @@ vendor/lib64/libcapiv2svarnnvendor.so
 vendor/lib64/libcapiv2udk7vendor.so
 vendor/lib64/libcapiv2uvvendor.so
 vendor/lib64/libdapparamstorage.so
+vendor/lib64/libpalclient.so
 vendor/lib64/libdlbpreg.so
 vendor/lib64/libfcsam.so
 vendor/lib64/libfmpal.so
@@ -629,6 +630,7 @@ vendor/lib64/libcpion.so
 vendor/lib64/libdrmfs.so
 vendor/lib64/libdrmtime.so
 vendor/lib64/libdrmutils.so
+vendor/lib64/libhdcpsrm.so
 vendor/lib64/libgpt.so
 vendor/lib64/libminksocket_vendor.so
 vendor/lib64/libops.so
@@ -765,6 +767,7 @@ vendor/lib64/libsynergy_loc_api.so
 vendor/lib64/libsys_info_cache.so
 vendor/lib64/libxtadapter.so
 vendor/lib64/vendor.qti.gnss-V4-ndk.so
+vendor/lib64/vendor.qti.gnss-V3-ndk.so
 vendor/lib64/vendor.qti.gnss-service.so
 
 # Graphics (Adreno)
@@ -852,6 +855,7 @@ vendor/etc/init/hw/init.qti.kernel.rc
 vendor/bin/hw/android.hardware.security.keymint-service-qti
 vendor/etc/init/android.hardware.security.keymint-service-qti.rc
 vendor/etc/vintf/manifest/android.hardware.security.keymint-service-qti.xml
+vendor/etc/permissions/android.hardware.hardware_keystore.xml
 vendor/lib64/libkeymasterdeviceutils.so
 vendor/lib64/libkeymasterprovision.so
 vendor/lib64/libkeymasterutils.so
