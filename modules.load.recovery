@@ -20,7 +20,6 @@ clk-dummy.ko
 clk-qcom.ko
 clk-rpmh.ko
 cmd-db.ko
-fts_touch_spi.ko
 coresight-csr.ko
 coresight-cti.ko
 coresight-dummy.ko
