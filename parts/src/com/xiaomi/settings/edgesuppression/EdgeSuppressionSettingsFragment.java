@@ -14,8 +14,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 
 import androidx.preference.Preference;
 import androidx.preference.Preference.OnPreferenceChangeListener;
@@ -31,8 +31,7 @@ public class EdgeSuppressionSettingsFragment extends PreferenceFragment implemen
         CompoundButton.OnCheckedChangeListener {
 
     private static final String TAG = "XiaomiPartsEdgeSuppressionSettingsFragment";
-    //private static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
 
     private EdgeSuppressionManager mEdgeSuppressionManager;
     private SharedPreferences mSharedPreferences;
