@@ -92,7 +92,7 @@ function blob_fixup() {
             grep -q "gettid: 1" "${2}" || echo "gettid: 1" >> "${2}"
             ;;
         vendor/lib64/c2.dolby.client.so)
-            "${PATCHELF}" --add-needed "libcodec2_hidl_shim.so" "${2}"
+            "${PATCHELF}" --add-needed "dolbycodec_shim.so" "${2}"
             ;;
         vendor/lib64/vendor.libdpmframework.so)
             "${PATCHELF}" --add-needed "libhidlbase_shim.so" "${2}"
