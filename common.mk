@@ -71,6 +71,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.atrace@1.0-service
 
+# IR
+PRODUCT_PACKAGES += \
+		android.hardware.ir-service.example
+
+PRODUCT_COPY_FILES += \
+		frameworks/native/data/etc/android.hardware.consumerir.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.consumerir.xml
+
 # Audio
 SOONG_CONFIG_NAMESPACES += android_hardware_audio
 SOONG_CONFIG_android_hardware_audio += \
