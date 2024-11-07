@@ -165,6 +165,7 @@ ro.hardware.fp.fod=true
 # Sensors
 ro.vendor.sensors.xiaomi.single_tap=true
 ro.vendor.sensors.xiaomi.udfps=true
+ro.vendor.sensors.xiaomi.double_tap=true
 
 # Bluetooth
 bluetooth.device.class_of_device=90,2,12
