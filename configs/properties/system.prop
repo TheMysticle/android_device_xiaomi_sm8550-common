@@ -8,3 +8,6 @@ ro.nfc.port=I2C
 
 # QTI
 ro.vendor.qti.va_aosp.support=1
+
+# Silence minksocket logs
+persist.log.tag.minksocket=S
