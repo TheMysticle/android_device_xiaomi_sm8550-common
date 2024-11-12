@@ -679,6 +679,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.media.audio.common.types-V2-cpp \
     libnl \
+    libinput_shim \
+    libgui_shim \
     libwfdaac_vendor
 
 PRODUCT_BOOT_JARS += \
