@@ -9,3 +9,6 @@ ro.hardware.fp.                                 u:object_r:vendor_fp_prop:s0
 vendor.dtool.                                   u:object_r:vendor_fp_prop:s0
 vendor.fps_hal.                                 u:object_r:vendor_fp_prop:s0
 vendor.panel.display.                           u:object_r:vendor_fp_prop:s0
+
+# Camera
+persist.vendor.low.cutoff          u:object_r:vendor_camera_prop:s0
