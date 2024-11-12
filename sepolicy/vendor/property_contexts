@@ -13,3 +13,7 @@ vendor.panel.display.                           u:object_r:vendor_fp_prop:s0
 # Camera
 persist.vendor.low.cutoff               u:object_r:vendor_camera_prop:s0
 persist.vendor.algo.aivs.debug          u:object_r:vendor_camera_prop:s0
+
+# RIL
+ro.vendor.ril.svlte1x                           u:object_r:vendor_radio_prop:s0
+ro.vendor.ril.svdo                              u:object_r:vendor_radio_prop:s0

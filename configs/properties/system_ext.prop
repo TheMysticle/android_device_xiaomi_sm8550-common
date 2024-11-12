@@ -15,4 +15,4 @@ ro.telephony.sim_slots.count=2
 ro.vendor.use_data_netmgrd=true
 telephony.active_modems.max_count=2
 telephony.lteOnCdmaDevice=1
-
+ro.fota.oem=Xiaomi
