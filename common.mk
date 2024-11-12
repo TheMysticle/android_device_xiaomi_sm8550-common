@@ -99,6 +99,7 @@ PRODUCT_PACKAGES += \
     libqcomvoiceprocessing \
     libsndcardparser \
     libtinycompress \
+		libldacBT_bco \
     libvolumelistener
 
 AUDIO_HAL_DIR := hardware/qcom-caf/sm8550/audio/primary-hal
