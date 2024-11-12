@@ -11,3 +11,4 @@ ro.vendor.qti.va_aosp.support=1
 
 # Silence minksocket logs
 persist.log.tag.minksocket=S
+persist.log.tag.ColorManager=S
