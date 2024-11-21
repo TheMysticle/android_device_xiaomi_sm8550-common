@@ -55,8 +55,8 @@ vendor/lib/vendor.qti.hardware.AGMIPC@1.0.so
 -vendor/lib64/vendor.qti.hardware.AGMIPC@1.0-impl.so
 vendor/lib64/vendor.qti.hardware.AGMIPC@1.0.so
 
-# eUICC - from lynx-user 14 AP2A.240905.003
-product/priv-app/EuiccGoogle/EuiccGoogle.apk
+# eUICC - from lynx-user 14 UQ1A.240105.004
+product/priv-app/EuiccGoogle/EuiccGoogle.apk|29f8c2d4301cc1c0c023dd1c205cfdec5bfc73aa;PRESIGNED
 
 # Audio
 odm/etc/audio/silent-3sec.wav
