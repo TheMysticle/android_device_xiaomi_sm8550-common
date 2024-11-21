@@ -160,6 +160,12 @@
          Software implementation will be used if config_hardware_auto_brightness_available is not set -->
     <bool name="config_automatic_brightness_available">true</bool>
 
+    <string-array name="config_telephonyEuiccDeviceCapabilities">
+        <item>gsm,8</item>
+        <item>utran,9</item>
+        <item>eutran,15</item>
+    </string-array>
+
     <!-- Wifi driver supports batched scan -->
     <bool translatable="false" name="config_wifi_batched_scan_supported">true</bool>
 
