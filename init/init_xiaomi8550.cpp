@@ -72,8 +72,8 @@ void vendor_load_properties() {
         }
     } else if (sku == "nuwa") { // Xiaomi 13 Pro
         if (region == "CN") { // China
-            set_ro_build_prop("model", "2210132C");
-            set_ro_build_prop("name", "nuwa");
+            set_ro_build_prop("model", "2210132G");
+            set_ro_build_prop("name", "2210132G");
         } else {              // Global
             set_ro_build_prop("model", "2210132G");
             set_ro_build_prop("name", "nuwa_global");
