@@ -23,7 +23,6 @@ $(call inherit-product-if-exists, vendor/gapps/arm64/arm64-vendor.mk)
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
     hardware/xiaomi \
-		hardware/qcom/audio/hal
 
 # AAPT
 PRODUCT_AAPT_CONFIG := normal
@@ -103,8 +102,6 @@ PRODUCT_PACKAGES += \
     libsndcardparser \
     libtinycompress \
     libvolumelistener
-
-AUDIO_HAL_DIR := hardware/qcom-caf/sm8550/audio/primary-hal
 
 # Audio
 PRODUCT_COPY_FILES += \
