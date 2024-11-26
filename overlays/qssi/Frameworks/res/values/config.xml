@@ -29,6 +29,12 @@
         <item>"wlan0"</item>
     </string-array>
 
+    <!-- Battery health -->
+    <bool name="config_supportBatteryHealth">true</bool>
+    <string name="config_batteryCalculatedCapacity">/sys/class/power_supply/battery/charge_full</string>
+    <string name="config_batteryDesignCapacity">/sys/class/power_supply/battery/charge_full_design</string>
+    <string name="config_batteryChargeCycles">/sys/class/power_supply/battery/cycle_count</string>
+
     <!-- Pocket Lock -->
     <string name="config_pocketJudgeVendorSensorName">xiaomi.sensor.nonui</string>
     <item name="config_pocketJudgeVendorSensorValue" format="float" type="dimen">2.0</item>
