@@ -197,7 +197,6 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@4.0-impl-qti-display \
     init.qti.display_boot.rc \
     init.qti.display_boot.sh \
-    init.kernel.post_boot-kalama.sh \
     libdisplayconfig.qti \
     libgralloc.qti \
     libdisplayconfig.system.qti \
@@ -309,6 +308,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     fstab.qcom \
     init.class_main.sh \
+		init.qcom.post_boot.sh \
+    init.kernel.post_boot-kalama.sh \
     init.qcom.early_boot.sh \
     init.qcom.rc \
     init.recovery.qcom.rc \
