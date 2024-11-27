@@ -40,6 +40,9 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
          used to match in settings search [CHAR LIMIT=NONE] -->
     <string name="keywords_backup_calling">Voice Over Cellular Internet</string>
 
+    <!-- Show battery cycle count -->
+    <bool name="config_show_battery_cycle_count" translatable="false">true</bool>
+
     <!-- Max network scan search time in seconds -->
     <integer name="config_network_scan_helper_max_search_time_sec">254</integer>
 </resources>
