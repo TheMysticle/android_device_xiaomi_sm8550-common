@@ -21,6 +21,10 @@ $(call inherit-product-if-exists, vendor/gapps/arm64/arm64-vendor.mk)
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
+		hardware/google/interfaces \
+		hardware/google/pixel \
+		hardware/lineage/interfaces/power-libperfmgr \
+		hardware/qcom-caf/common/libqti-perfd-client \
     $(LOCAL_PATH) \
     hardware/xiaomi \
 
@@ -502,10 +506,13 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.2.vendor
+    android.hardware.power@1.2.vendor \
+		android.hardware.power-service.lineage-libperfmgr \
+    libqti-perfd-client \
+    libgrpc++_unsecure.vendor
 
 PRODUCT_COPY_FILES += \
-    vendor/qcom/opensource/power/config/kalama/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml
+		$(LOCAL_PATH)/configs/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
 
 # Powershare
 PRODUCT_PACKAGES += \
