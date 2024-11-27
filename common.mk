@@ -502,7 +502,6 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power-service \
     android.hardware.power@1.2.vendor
 
 PRODUCT_COPY_FILES += \
