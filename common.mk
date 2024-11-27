@@ -26,6 +26,8 @@ PRODUCT_SOONG_NAMESPACES += \
 		hardware/lineage/interfaces/power-libperfmgr \
 		hardware/qcom-caf/common/libqti-perfd-client \
     $(LOCAL_PATH) \
+		kernel/xiaomi/sm8550 \
+    kernel/xiaomi/sm8550-modules \
     hardware/xiaomi \
 
 # AAPT
@@ -192,6 +194,8 @@ PRODUCT_COPY_FILES += \
 # Display
 TARGET_USE_YCRCB_CAMERA_ENCODE := true
 PRODUCT_PACKAGES += \
+# Graphics
+PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator-V1-ndk.vendor \
     android.hardware.graphics.common-V3-ndk.vendor \
     android.hardware.graphics.mapper@4.0-impl-qti-display \
@@ -199,19 +203,15 @@ PRODUCT_PACKAGES += \
     init.qti.display_boot.sh \
     libdisplayconfig.qti \
     libgralloc.qti \
-    libdisplayconfig.system.qti \
     libgui_vendor \
     libqdMetaData \
-    libqdMetaData.system \
-    libsdmcore \
-    libsdmutils \
-    vendor.display.config@1.0 \
+    libqdutils \
+    vendor.display.config@1.1 \
     vendor.display.config@1.11.vendor \
     vendor.display.config@2.0 \
     vendor.display.config@2.0.vendor \
     vendor.qti.hardware.display.allocator-service \
     vendor.qti.hardware.display.composer-service \
-    vendor.qti.hardware.display.config-V5-ndk \
     vendor.qti.hardware.display.config-V1-ndk.vendor \
     vendor.qti.hardware.display.config-V2-ndk.vendor \
     vendor.qti.hardware.display.config-V3-ndk.vendor \
@@ -219,6 +219,7 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.config-V5-ndk.vendor \
     vendor.qti.hardware.display.config-V6-ndk.vendor \
     vendor.qti.hardware.display.demura-service \
+    vendor.qti.hardware.display.mapper@1.0.vendor \
     vendor.qti.hardware.display.mapper@1.1.vendor \
     vendor.qti.hardware.display.mapper@2.0.vendor \
     vendor.qti.hardware.display.mapper@3.0.vendor \
@@ -327,9 +328,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/init/fstab.qcom:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.qcom
-
-# Kernel
-include $(LOCAL_PATH)/kernel/kernel-platform.mk
 
 # Keymaster
 PRODUCT_PACKAGES += \
