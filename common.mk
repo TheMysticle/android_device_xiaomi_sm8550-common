@@ -259,7 +259,10 @@ PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0.vendor
 
 # GPS
+include hardware/qcom-caf/sm8550/gps/gps_vendor_product.mk
+
 PRODUCT_PACKAGES += \
+    android.hardware.gnss-V1-ndk_platform.vendor \
     android.hardware.gnss-V2-ndk.vendor
 
 PRODUCT_COPY_FILES += \
@@ -464,8 +467,21 @@ PRODUCT_PACKAGES += \
     XiaomiParts
 
 # Perf
+PRODUCT_PACKAGES += \
+    android.hardware.thermal@2.0.vendor \
+    android.hardware.thermal-V1-ndk.vendor \
+    libavservices_minijail.vendor \
+    libpsi.vendor \
+    libtflite \
+    vendor.qti.hardware.servicetracker@1.2.vendor
+
+# Perf
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/perf/msm_irqbalance.conf:$(TARGET_COPY_OUT_VENDOR)/etc/msm_irqbalance.conf
+
+# QTI service tracker
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.servicetracker@1.2.vendor
 
 # RenderScript
 PRODUCT_PACKAGES += \
@@ -592,7 +608,8 @@ PRODUCT_PACKAGES += \
 # Thermal
 PRODUCT_PACKAGES += \
     android.hardware.thermal@2.0 \
-    android.hardware.thermal@2.0.vendor
+    android.hardware.thermal@2.0.vendor \
+    android.hardware.thermal@2.0-service.qti-v2
 
 # Touchscreen
 PRODUCT_COPY_FILES += \
