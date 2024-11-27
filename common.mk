@@ -312,6 +312,7 @@ PRODUCT_PACKAGES += \
     init.kernel.post_boot-kalama.sh \
     init.qcom.early_boot.sh \
     init.qcom.rc \
+    fstab.zram \
     init.recovery.qcom.rc \
     init.qcom.sh \
     init.qcom.usb.rc \
