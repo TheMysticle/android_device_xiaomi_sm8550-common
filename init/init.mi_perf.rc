@@ -6,6 +6,16 @@ on property:vendor.post_boot.parsed=1
     # Set default thermal profile
     write /sys/class/thermal/thermal_message/sconfig 0
 
+    # IRQ Tuning
+    # IRQ 253: msm_drm0
+    # IRQ 208: kgsl_3d0_irq
+    write /proc/irq/208/smp_affinity_list 1
+    write /proc/irq/253/smp_affinity_list 2
+    
+    # Kill WALT CPU input boost
+    write /proc/sys/walt/input_boost/input_boost_freq "0 0 0 0 0 0 0"
+    write /proc/sys/walt/input_boost/input_boost_ms 0
+
 service poweropt-service /vendor/bin/poweropt-service
     override
     class main
@@ -14,4 +24,8 @@ service poweropt-service /vendor/bin/poweropt-service
     disabled
 
 on property:sys.boot_completed=1
+    # Enable PowerHAL hint processing
+    setprop vendor.powerhal.init 1
+
+    # Enable zram
     swapon_all /vendor/etc/fstab.zram
