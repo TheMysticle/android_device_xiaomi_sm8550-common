@@ -73,7 +73,7 @@ ro.vendor.audio.soundtrigger.xiaomievent=1
 ro.vendor.audio.soundtrigger=sva
 ro.vendor.audio.spk.stereo=true
 ro.vendor.audio.surround.headphone.only=true
-ro.vendor.audio.videobox.switch=false
+ro.vendor.audio.videobox.switch=true
 ro.vendor.audio.voice.change.support=true
 ro.vendor.audio.voice.change.youme.support=true
 vendor.audio.adm.buffering.ms=2
@@ -250,7 +250,7 @@ sys.displayfeature_hidl=true
 ro.vendor.displayfeature.dump=true
 persist.demo.hdmirotationlock=false
 persist.sys.sf.color_saturation=1.0
-persist.sys.sf.color_mode=9
+persist.sys.sf.color_mode=0
 debug.sf.hw=0
 debug.egl.hw=0
 debug.sf.latch_unsignaled=1
@@ -262,7 +262,7 @@ vendor.display.disable_excl_rect=0
 vendor.display.disable_excl_rect_partial_fb=1
 vendor.display.comp_mask=0
 vendor.display.enable_optimize_refresh=0
-vendor.display.use_smooth_motion=1
+vendor.display.use_smooth_motion=0
 vendor.display.disable_stc_dimming=1
 vendor.display.enable_dpps_dynamic_fps=1
 debug.sf.disable_client_composition_cache=1
@@ -346,12 +346,11 @@ ro.vendor.nfc.repair=1
 ro.vendor.se.type=HCE,UICC
 
 # Perf
-ro.vendor.perf-hal.ver=3.0
+ro.vendor.perf-hal.ver=2.3
 ro.vendor.extension_library=libqti-perfd-client.so
-ro.vendor.perf.scroll_opt=true
 ro.vendor.qspm.enable=true
-vendor.power.pasr.enabled=false
-vendor.pasr.activemode.enabled=false
+vendor.power.pasr.enabled=true
+vendor.pasr.activemode.enabled=true
 vendor.perf.framepacing.enable=1
 
 # Telephony
