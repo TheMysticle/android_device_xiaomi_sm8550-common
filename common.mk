@@ -254,11 +254,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0.vendor
 
-# GPS
-include hardware/qcom-caf/sm8550/gps/gps_vendor_product.mk
-
 PRODUCT_PACKAGES += \
-    android.hardware.gnss-V1-ndk_platform.vendor \
     android.hardware.gnss-V2-ndk.vendor
 
 PRODUCT_COPY_FILES += \
