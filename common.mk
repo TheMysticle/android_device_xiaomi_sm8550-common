@@ -501,7 +501,9 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.2.vendor
+    android.hardware.power-service-qti \
+    android.hardware.power@1.2.vendor \
+		libgrpc++_unsecure.vendor
 
 PRODUCT_COPY_FILES += \
     vendor/qcom/opensource/power/config/kalama/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml
@@ -510,18 +512,15 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     vendor.lineage.powershare@1.0-service.xiaomi
 
-# QMI
+# QTI
 PRODUCT_PACKAGES += \
     libcurl.vendor \
     libjson \
     libjsoncpp.vendor \
+		libsqlite.vendor \
     libqti_vndfwk_detect.vendor \
-    libqti_vndfwk_detect_vendor \
-    libsqlite.vendor \
-    libvndfwk_detect_jni.qti.vendor \
     libvndfwk_detect_jni.qti_vendor
 
-# QTI
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/permissions/privapp-permissions-qti.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-qti.xml \
     $(LOCAL_PATH)/configs/permissions/qti_whitelist.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/qti_whitelist.xml
