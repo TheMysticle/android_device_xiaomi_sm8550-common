@@ -377,3 +377,6 @@ persist.vendor.radio.enableadvancedscan=true
 
 # USB
 ro.usb.uvc.enabled=true
+
+# shutdown
+ro.build.shutdown_timeout=0
