@@ -201,7 +201,7 @@ PRODUCT_PACKAGES += \
     libgralloc.qti \
     libgui_vendor \
     libqdMetaData \
-    libqdmutils \
+    libqdutils \
     vendor.display.config@1.1 \
     vendor.display.config@1.11.vendor \
     vendor.display.config@2.0 \
