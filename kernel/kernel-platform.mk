@@ -6,9 +6,10 @@
 
 TARGET_USES_KERNEL_PLATFORM ?= true
 
+KERNEL_PREBUILT_DIR ?= device/qcom/$(TARGET_BOARD_PLATFORM)-kernel
 KERNEL_PRODUCT_DIR := kernel_obj
 KERNEL_MODULES_INSTALL := dlkm
-KERNEL_MODULES_OUT ?= $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/$(KERNEL_MODULES_INSTALL)/lib/modules
+KERNEL_MODULES_OUT ?= $(OUT_DIR)/target/product/$(AOSPA_BUILD)/$(KERNEL_MODULES_INSTALL)/lib/modules
 
 ifeq ($(TARGET_USES_KERNEL_PLATFORM),true)
 
@@ -19,8 +20,10 @@ endif
 # Path to system_dlkm artifacts directory
 ifneq ($(wildcard $(KERNEL_PREBUILT_DIR)/system_dlkm/),)
 BOARD_SYSTEM_DLKM_SRC := $(KERNEL_PREBUILT_DIR)/system_dlkm
+ifeq ($(wildcard $(BOARD_SYSTEM_DLKM_SRC)/lib/modules/),)
 PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,$(KERNEL_PREBUILT_DIR)/system_dlkm/,$(TARGET_COPY_OUT_SYSTEM_DLKM)/lib/modules)
+    $(call find-copy-subdir-files,*,$(BOARD_SYSTEM_DLKM_SRC)/,$(TARGET_COPY_OUT_SYSTEM_DLKM)/lib/modules)
+endif
 endif
 
 # DLKM
