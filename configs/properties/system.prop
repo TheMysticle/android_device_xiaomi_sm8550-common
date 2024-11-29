@@ -6,6 +6,9 @@ ro.media.recorder-max-base-layer-fps=60
 # NFC
 ro.nfc.port=I2C
 
+# Graphics
+debug.sf.disable_backpressure=1
+
 # QTI
 ro.vendor.qti.va_aosp.support=1
 
