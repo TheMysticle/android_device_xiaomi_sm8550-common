@@ -651,6 +651,9 @@ PRODUCT_PACKAGES += \
     android.hardware.wifi.hostapd-V1-ndk.vendor \
     android.hardware.wifi-service \
     android.hardware.wifi.supplicant-V1-ndk.vendor \
+		firmware_WCNSS_qcom_cfg.ini_symlink \
+    firmware_wlan_mac.bin_symlink \
+    firmware_wlanmdsp.otaupdate_symlink \
     hostapd \
     hostapd_cli \
     libwpa_client \
