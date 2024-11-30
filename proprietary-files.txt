@@ -1865,6 +1865,10 @@ odm/etc/init/vendor.xiaomi.sensor.communicate@1.0-service.rc
 odm/etc/vintf/manifest/vendor.xiaomi.sensor.communicate@1.0_manifest.xml
 vendor/lib64/vendor.xiaomi.sensor.communicate@1.0.so
 
+# Display calibration (Nuwa)
+odm/etc/display/qdcm_calib_data_xiaomi_38_0c_0a_cmd_mode_dsc_dsi_panel.json
+odm/etc/mdss_dsi_m2_38_0c_0a_dsc_cmd_mi.xml
+
 # Sensors
 odm/lib64/libclient2slpi.notifier.so
 odm/lib64/libsensor_cal@2.0.so
