@@ -4609,6 +4609,8 @@ case "$target" in
 		echo N > /sys/module/lpm_levels/parameters/sleep_disabled
 	fi
 	echo N > /sys/module/lpm_levels/parameters/sleep_disabled
+        # Starting io prefetcher service
+        start iop
 
         # Set Memory parameters
         configure_memory_parameters
@@ -5370,13 +5372,14 @@ case "$target" in
 	echo 400000 > /proc/sys/kernel/sched_freq_dec_notify
 	echo 5 > /proc/sys/kernel/sched_spill_nr_run
 	echo 1 > /proc/sys/kernel/sched_restrict_cluster_spill
-  echo 1 > /proc/sys/kernel/sched_prefer_sync_wakee_to_waker
+        echo 1 > /proc/sys/kernel/sched_prefer_sync_wakee_to_waker
+	start iop
 
-  # disable thermal bcl hotplug to switch governor
-  echo 0 > /sys/module/msm_thermal/core_control/enabled
+        # disable thermal bcl hotplug to switch governor
+        echo 0 > /sys/module/msm_thermal/core_control/enabled
 
-  # online CPU0
-  echo 1 > /sys/devices/system/cpu/cpu0/online
+        # online CPU0
+        echo 1 > /sys/devices/system/cpu/cpu0/online
 	# configure governor settings for little cluster
 	echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 	echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load
