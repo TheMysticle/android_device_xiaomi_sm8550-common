@@ -66,7 +66,7 @@ public class EdgeSuppressionSettingsFragment extends PreferenceFragment implemen
         }
 
         mEdgeSuppressionManager.handleEdgeSuppressionChange();
-        setupEdgeSuppressionPreview(mSwitchBar.isChecked());
+        setupEdgeSuppressionPreview();
     }
 
     @Override
@@ -101,13 +101,12 @@ public class EdgeSuppressionSettingsFragment extends PreferenceFragment implemen
         mEdgeSuppressionManager.handleEdgeSuppressionChange();
     }
 
-    private void setupEdgeSuppressionPreview(boolean enabled) {
+    private void setupEdgeSuppressionPreview() {
         ViewGroup viewGroup = (ViewGroup) getActivity().getWindow().getDecorView();
         mLeftView = new View(getContext());
         mRightView = new View(getContext());
 
-        int suppressionSize = enabled ? mEdgeSuppressionManager.getSuppressionSize(false,
-                (float) (mSharedPreferences.getInt("edgesuppression_width", 60) + 20) / 100) : 0;
+        int suppressionSize = mEdgeSuppressionManager.getSuppressionSize(false, (float) (mSharedPreferences.getInt("edgesuppression_width", 60) + 20) / 100);
         WindowManager windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics metrics = new DisplayMetrics();
         windowManager.getDefaultDisplay().getRealMetrics(metrics);
