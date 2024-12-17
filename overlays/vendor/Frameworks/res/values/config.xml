@@ -131,16 +131,6 @@
         <item>40</item>
     </integer-array>
 
-    <!-- Indicate available ColorDisplayManager.COLOR_MODE_xxx. -->
-    <integer-array name="config_availableColorModes">
-        <item>258</item> <!-- vivid -->
-        <item>256</item> <!-- saturated -->
-        <item>257</item> <!-- standard -->
-        <item>269</item> <!-- original -->
-        <item>268</item> <!-- p3 -->
-        <item>267</item> <!-- srgb -->
-    </integer-array>
-
     <!-- Safe headphone volume index. When music stream volume is below this index
          the SPL on headphone output is compliant to EN 60950 requirements for portable music
          players. -->
