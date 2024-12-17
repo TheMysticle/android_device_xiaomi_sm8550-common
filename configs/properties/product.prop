@@ -22,6 +22,3 @@ vendor.audio.use.sw.alac.decoder=true
 vendor.audio.use.sw.ape.decoder=true
 vendor.audio_hal.period_size=192
 vendor.voice.path.for.pcm.voip=true
-
-# Disable vsync for cpu rendered apps
-debug.cpurend.vsync=false
