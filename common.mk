@@ -79,8 +79,6 @@ PRODUCT_PACKAGES += \
     android.hardware.atrace@1.0-service
 
 # Audio
-$(call soong_config_set, android_hardware_audio, run_64bit, true)
-
 PRODUCT_PACKAGES += \
     android.hardware.audio@7.1-impl \
     android.hardware.audio.effect@7.0-impl \
@@ -89,34 +87,26 @@ PRODUCT_PACKAGES += \
     libagm_compress_plugin \
     libagm_mixer_plugin \
     libagm_pcm_plugin \
-		android.hardware.bluetooth.a2dp@1.0 \
-    android.hardware.bluetooth.a2dp@1.0.vendor \
-		libldacBT_bco
-
-PRODUCT_PACKAGES += \
-    audio.primary.kalama \
-    audio.bluetooth.default \
-    audio.r_submix.default \
-    audio.usb.default
-
-PRODUCT_PACKAGES += \
-    audioadsprpcd \
+		libldacBT_bco \
+		audioadsprpcd \
     libbatterylistener \
     libqcompostprocbundle \
     libqcomvisualizer \
     libqcomvoiceprocessing \
     libsndcardparser \
     libtinycompress \
-    libvolumelistener
+    libvolumelistener \
+		audio.primary.kalama \
+    audio.r_submix.default \
+    audio.usb.default
 
-# Audio
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_kalama/audio_policy_configuration.xml \
     $(LOCAL_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_kalama_qssi/audio_policy_configuration.xml
 
 PRODUCT_COPY_FILES += \
-    frameworks/av/services/audiopolicy/config/a2dp_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_audio_policy_configuration.xml \
     $(LOCAL_PATH)/configs/audio/bluetooth_hearing_aid_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_hearing_aid_audio_policy_configuration.xml \
+    frameworks/av/services/audiopolicy/config/a2dp_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
@@ -134,13 +124,15 @@ PRODUCT_PACKAGES += \
 
 # Bluetooth
 PRODUCT_PACKAGES += \
+		android.hardware.bluetooth@1.1.vendor \
     android.hardware.bluetooth.audio-V2-ndk.vendor \
-    android.hardware.bluetooth@1.1.vendor \
+		vendor.qti.hardware.btconfigstore@1.0.vendor \
+		vendor.qti.hardware.btconfigstore@2.0.vendor \
     android.hardware.bluetooth.audio-impl \
-    vendor.qti.hardware.bluetooth.audio-V1-ndk.vendor \
     vendor.qti.hardware.bluetooth_audio@2.1.vendor \
-    vendor.qti.hardware.btconfigstore@1.0.vendor \
-    vendor.qti.hardware.btconfigstore@2.0.vendor
+		vendor.qti.hardware.bluetooth.audio-V1-ndk.vendor \
+		audio.bluetooth.default \
+		libbluetooth_audio_session
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml \
@@ -497,7 +489,7 @@ PRODUCT_PACKAGES += \
 # Power
 PRODUCT_PACKAGES += \
     android.hardware.power@1.2.vendor \
-		android.hardware.power-service.lineage-libperfmgr \
+    android.hardware.power-service.lineage-libperfmgr \
     libqti-perfd-client \
 		libgrpc++_unsecure.vendor
 
