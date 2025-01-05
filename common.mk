@@ -94,6 +94,10 @@ PRODUCT_PACKAGES += \
     libqcomvoiceprocessing \
     libsndcardparser \
     libtinycompress \
+		libagmclient \
+    libfmpal \
+    libhfp_pal \
+    libaudiochargerlistener \
     libvolumelistener \
 		audio.primary.kalama \
     audio.r_submix.default \
@@ -116,6 +120,11 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.low_latency.xml \
     frameworks/native/data/etc/android.hardware.audio.pro.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.pro.xml \
     frameworks/native/data/etc/android.software.midi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.midi.xml
+
+# Misc
+PRODUCT_PACKAGES += \
+		libaudioroute.vendor \
+		libeffectsconfig.vendor \
 
 # Authsecret
 PRODUCT_PACKAGES += \
