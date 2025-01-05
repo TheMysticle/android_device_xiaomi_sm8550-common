@@ -522,7 +522,6 @@ vendor/lib64/libtinyxml2_1.so
 vendor/lib64/vendor.qti.hardware.qdutils_disp@1.0.so
 
 # Displayfeature
-odm/lib64/hw/displayfeature.default.so
 odm/lib64/libMiDispDevManager.so
 odm/lib64/libcolortempmode.so
 odm/lib64/libdisplaycount.so
@@ -543,13 +542,6 @@ odm/lib64/libsdr2hdr.so
 odm/lib64/libsre.so
 odm/lib64/libtruetone.so
 odm/lib64/libvideomode.so
-vendor/bin/hw/vendor.xiaomi.hardware.displayfeature@1.0-service
-vendor/bin/displayfeature
-vendor/etc/init/vendor.xiaomi.hardware.displayfeature@1.0-service.rc
-vendor/etc/vintf/manifest/vendor.xiaomi.hardware.displayfeature@1.0-service.xml
-vendor/lib64/hw/vendor.xiaomi.hardware.displayfeature@1.0-impl.so
-vendor/lib64/libdisplayfeature.so
-vendor/lib64/libdisplayfeatureservice.so
 vendor/lib64/libeyecare.so
 vendor/lib64/libmi-stc-HW-modulate.so
 vendor/lib64/libmilut.so
