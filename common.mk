@@ -17,7 +17,7 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 $(call inherit-product, vendor/xiaomi/sm8550-common/sm8550-common-vendor.mk)
 
 # Gapps
-$(call inherit-product-if-exists, vendor/gms/products/gms.mk)
+$(call inherit-product-if-exists, vendor/gapps/arm64/arm64-vendor.mk)
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
