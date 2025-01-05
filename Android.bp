@@ -15,10 +15,6 @@ soong_namespace {
     ],
 }
 
-cc_library_shared {
-    name: "libldacBT_bco",
-}
-
 install_symlink {
     name: "firmware_wlanmdsp.otaupdate_symlink",
     vendor: true,
