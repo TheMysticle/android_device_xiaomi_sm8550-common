@@ -393,6 +393,7 @@ PRODUCT_PACKAGES += \
     libsfplugin_ccodec_utils.vendor \
     libstagefrighthw \
     dolbycodec_shim \
+		libcodec2_hidl_shim \
     qcodec2_shim
 
 PRODUCT_COPY_FILES += \
