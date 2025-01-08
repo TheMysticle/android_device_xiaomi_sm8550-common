@@ -22,5 +22,5 @@ cc_library_shared {
     shared_libs: [
         "libcodec2_hidl@1.0",
     ],
-    vendor_available: true,
+    vendor: true,
 }
