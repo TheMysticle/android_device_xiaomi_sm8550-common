@@ -379,8 +379,6 @@ PRODUCT_VENDOR_PROPERTIES += \
 endif
 
 # Media
-include hardware/qcom-caf/sm8550/media/product.mk
-
 PRODUCT_PACKAGES += \
     android.hardware.media.c2@1.2.vendor \
     libavservices_minijail \
@@ -391,7 +389,6 @@ PRODUCT_PACKAGES += \
     libcodec2_vndk.vendor \
     libgui_vendor \
     libsfplugin_ccodec_utils.vendor \
-    libstagefrighthw \
     dolbycodec_shim \
 		libcodec2_hidl_shim \
     qcodec2_shim
