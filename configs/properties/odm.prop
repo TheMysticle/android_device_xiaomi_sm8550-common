@@ -11,6 +11,9 @@ ro.surface_flinger.set_idle_timer_ms=4000
 # Sensors
 persist.vendor.sensors.enable.mag_filter=true
 
+# Touchfeature
+ro.vendor.touchfeature.type=183
+
 # SKUs
 import /odm/etc/build_${ro.boot.hardware.sku}.prop
 
