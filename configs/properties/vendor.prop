@@ -19,18 +19,6 @@ ro.vendor.audio.dolby.dax.support=true
 ro.vendor.audio.dolby.vision.support=true
 ro.vendor.audio.feature.spatial=7
 ro.vendor.audio.gain.support=true
-ro.vendor.audio.soundtrigger.appdefine.cnn.level=77
-ro.vendor.audio.soundtrigger.appdefine.gmm.level=65
-ro.vendor.audio.soundtrigger.appdefine.gmm.user.level=55
-ro.vendor.audio.soundtrigger.appdefine.vop.level=10
-ro.vendor.audio.soundtrigger.xanzn.cnn.level=158
-ro.vendor.audio.soundtrigger.xanzn.gmm.level=80
-ro.vendor.audio.soundtrigger.xanzn.gmm.user.level=80
-ro.vendor.audio.soundtrigger.xanzn.vop.level=41
-ro.vendor.audio.soundtrigger.xatx.cnn.level=79
-ro.vendor.audio.soundtrigger.xatx.gmm.level=60
-ro.vendor.audio.soundtrigger.xatx.gmm.user.level=60
-ro.vendor.audio.soundtrigger.xatx.vop.level=37
 ro.vendor.audio.support.sound.id=true
 vendor.audio.adm.buffering.ms=2
 ro.vendor.audio.dolby.dax.version=DAX3_3.8.5.20_r1
@@ -129,7 +117,6 @@ ro.vendor.colorpick_adjust=true
 ro.vendor.dfps.enable=false
 ro.vendor.display.ai_disp.enable=true
 ro.vendor.display.default_fps=60
-ro.vendor.display.mi_calib.enable=true
 ro.vendor.display.nature_mode.enable=true
 ro.vendor.display.touch.idle.enable=true
 ro.vendor.display.type=oled
@@ -276,15 +263,6 @@ persist.vendor.data.iwlan.enable=true
 persist.vendor.radio.add_power_save=1
 persist.vendor.ssr.restart_level=ALL_ENABLE
 persist.vendor.radio.enableadvancedscan=true
-
-# Fling
-ro.min.fling_velocity=160
-ro.max.fling_velocity=20000
-ro.max.fling_velocity=20000
-ro.vendor.qti.cgroup_follow.enable=true
-persist.vendor.qti.inputopts.enable=true
-persist.vendor.qti.inputopts.movetouchslop=0.6
-ro.qcom.adreno.qgl.ShaderStorageImageExtendedFormats=0
 
 # USB
 ro.usb.uvc.enabled=true

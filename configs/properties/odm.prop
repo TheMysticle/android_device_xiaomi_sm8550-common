@@ -1,15 +1,65 @@
 # Audio
 vendor.audio.hdr.record.enable=false
 
+# SoundTrigger
+ro.vendor.audio.soundtrigger=sva
+ro.vendor.audio.soundtrigger.lowpower=true
+ro.vendor.audio.soundtrigger.training.level=50
+ro.vendor.audio.soundtrigger.xatx.gmm.level=60
+ro.vendor.audio.soundtrigger.xatx.gmm.user.level=60
+ro.vendor.audio.soundtrigger.xatx.cnn.level=79
+ro.vendor.audio.soundtrigger.xatx.vop.level=37
+ro.vendor.audio.soundtrigger.xanzn.gmm.level=80
+ro.vendor.audio.soundtrigger.xanzn.gmm.user.level=80
+ro.vendor.audio.soundtrigger.xanzn.cnn.level=158
+ro.vendor.audio.soundtrigger.xanzn.vop.level=41
+ro.vendor.audio.soundtrigger.appdefine.gmm.level=65
+ro.vendor.audio.soundtrigger.appdefine.gmm.user.level=55
+ro.vendor.audio.soundtrigger.appdefine.cnn.level=77
+ro.vendor.audio.soundtrigger.appdefine.vop.level=10
+ro.vendor.audio.soundtrigger.snr=14
+ro.vendor.audio.soundtrigger.xiaomievent=1
+ro.vendor.audio.soundtrigger.sva-7.0=1
+ro.vendor.audio.soundtrigger.permian=1
+
 # Display
 persist.sys.sf.color_mode=0
+ro.vendor.display.mi_calib.enable=true
 ro.surface_flinger.use_content_detection_for_refresh_rate=true
 ro.surface_flinger.set_display_power_timer_ms=1000
 ro.surface_flinger.set_touch_timer_ms=4000
 ro.surface_flinger.set_idle_timer_ms=4000
 
+# Media
+debug.media.video.frc=false
+debug.media.video.vpp=false
+ro.vendor.media.video.frc.support=true
+ro.vendor.media.video.vpp.support=true
+debug.config.media.video.frc.support=true
+debug.config.media.video.aie.support=true
+debug.config.media.video.ais.support=true
+debug.config.media.video.meeting.support=true
+debug.media.video.chipset=6
+vendor.media.vpp.debug.value.use=false
+vendor.media.vpp.aie.cade=100
+vendor.media.vpp.aie.ltm=1
+vendor.media.vpp.aie.ltmsatgain=55
+vendor.media.vpp.aie.ltmsatoff=55
+vendor.media.vpp.aie.ltmacestr=37
+vendor.media.vpp.aie.ltmacebril=20
+vendor.media.vpp.aie.ltmacebrih=0
+debug.config.media.video.dolby_vision_suports=true
+
 # Sensors
 persist.vendor.sensors.enable.mag_filter=true
+
+# Fling
+ro.min.fling_velocity=160
+ro.max.fling_velocity=20000
+ro.vendor.qti.cgroup_follow.enable=true
+persist.vendor.qti.inputopts.enable=true
+persist.vendor.qti.inputopts.movetouchslop=0.6
+ro.qcom.adreno.qgl.ShaderStorageImageExtendedFormats=0
 
 # Touchfeature
 ro.vendor.touchfeature.type=183
