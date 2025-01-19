@@ -19,6 +19,38 @@
         </interface>
     </hal>
     <hal format="hidl" optional="true">
+        <name>vendor.qti.hardware.improvetouch.blobmanager</name>
+        <version>1.0</version>
+        <interface>
+            <name>IBlobManager</name>
+            <instance>BlobManagerService</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>vendor.qti.hardware.improvetouch.touchcompanion</name>
+        <version>1.0</version>
+        <interface>
+            <name>ITouchCompanion</name>
+            <instance>TouchCompanionService</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>vendor.qti.hardware.improvetouch.gesturemanager</name>
+        <version>1.0</version>
+        <interface>
+            <name>IGestureManager</name>
+            <instance>GestureManagerService</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
+        <name>vendor.qti.hardware.seccam</name>
+        <version>1.0</version>
+        <interface>
+            <name>ISecCam</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl" optional="true">
         <name>android.hardware.bluetooth</name>
         <version>1.0-1</version>
         <interface>
@@ -50,13 +82,6 @@
             <name>IGnss</name>
             <instance>default</instance>
             <instance>gnss_vendor</instance>
-        </interface>
-    </hal>
-    <hal format="aidl" optional="true">
-        <name>android.hardware.graphics.allocator</name>
-        <interface>
-            <name>IAllocator</name>
-            <instance>default</instance>
         </interface>
     </hal>
     <hal format="hidl" optional="true">
@@ -645,13 +670,6 @@
         <version>3.1</version>
         <interface>
             <name>IQtiComposer</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="aidl" optional="true">
-        <name>vendor.qti.hardware.display.composer3</name>
-        <interface>
-            <name>IQtiComposer3Client</name>
             <instance>default</instance>
         </interface>
     </hal>
