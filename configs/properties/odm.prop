@@ -53,14 +53,6 @@ debug.config.media.video.dolby_vision_suports=true
 # Sensors
 persist.vendor.sensors.enable.mag_filter=true
 
-# Fling
-ro.min.fling_velocity=160
-ro.max.fling_velocity=20000
-ro.vendor.qti.cgroup_follow.enable=true
-persist.vendor.qti.inputopts.enable=true
-persist.vendor.qti.inputopts.movetouchslop=0.6
-ro.qcom.adreno.qgl.ShaderStorageImageExtendedFormats=0
-
 # Touchfeature
 ro.vendor.touchfeature.type=183
 
