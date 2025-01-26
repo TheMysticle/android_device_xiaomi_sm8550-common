@@ -375,6 +375,7 @@ SPAMMY_LOG_TAGS := \
     libsensor-parseRGB \
     libsensor-ssccalapi \
     sensors \
+		android.hardware.power-service-qti \
     vendor.qti.hardware.display.composer-service \
     vendor.xiaomi.sensor.citsensorservice@2.0-service
 
