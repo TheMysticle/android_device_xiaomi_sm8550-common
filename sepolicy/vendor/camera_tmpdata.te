@@ -1,0 +1,2 @@
+allow hal_camera_default tmpfs:dir search;
+allow hal_camera_default system_data_file:dir { search };

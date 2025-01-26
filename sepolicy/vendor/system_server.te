@@ -5,3 +5,10 @@ allow system_server vendor_dtool:binder { call transfer };
 allow system_server vendor_dtool:binder transfer;
 allow system_server vendor_dtool:fd *;
 get_prop(system_server, vendor_fp_prop)
+rw_dir_file(system_server, vndbinder_device)
+
+# Allow system_server to write to audioserver_tmpfs
+allow system_server audioserver_tmpfs:file { read write };
+
+# Allow system_server to write to mediaserver_tmpfs
+allow system_server mediaserver_tmpfs:file { read write };
