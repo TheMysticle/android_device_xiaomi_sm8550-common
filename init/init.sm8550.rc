@@ -32,6 +32,13 @@ on post-fs-data
     mkdir /mnt/vendor/persist/goodix 0770 system system
     mkdir /mnt/vendor/persist/fpc 0770 system system
 
+# Thermal
 on property:vendor.post_boot.parsed=1
      # Set default thermal profile
      write /sys/class/thermal/thermal_message/sconfig 0
+
+
+# Libperf
+on property:sys.boot_completed=1
+    # Enable PowerHAL hint processing
+    setprop vendor.powerhal.init 1
