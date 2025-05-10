@@ -10,3 +10,11 @@ prebuilt_etc {
     src: "ueventd.xiaomi.rc",
     device_specific: true,
 }
+
+sh_binary {
+    name: "init.qcom.post_boot",
+    owner: "xiaomi",
+    src: "init.qcom.post_boot.sh",
+    filename: "init.qcom.post_boot.sh",
+    soc_specific: true,
+}
