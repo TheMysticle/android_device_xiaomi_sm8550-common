@@ -37,8 +37,12 @@ on property:vendor.post_boot.parsed=1
      # Set default thermal profile
      write /sys/class/thermal/thermal_message/sconfig 0
 
-
 # Libperf
 on property:sys.boot_completed=1
     # Enable PowerHAL hint processing
     setprop vendor.powerhal.init 1
+
+# QTI Power can't be deleted so I will block it from starting instead
+service vendor.power /vendor/bin/hw/android.hardware.power-service-qti
+    disabled
+    override
